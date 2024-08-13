@@ -9,9 +9,9 @@ to glibc.
 ## Implemented stuff
 
 - string
-- - memcpy
+  [x] memcpy
 
 - stddef
-- - null
-- - size_t
-- - ssize_t
+  [x] null
+  [x] size_t
+  [x] ssize_t
