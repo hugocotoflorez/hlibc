@@ -8,10 +8,12 @@ to glibc.
 
 ## Implemented stuff
 
-- string
-  [x] memcpy
+### string
 
-- stddef
-  [x] null
-  [x] size_t
-  [x] ssize_t
+[x] memcpy
+
+### stddef
+
+[x] null
+[x] size_t
+[x] ssize_t
