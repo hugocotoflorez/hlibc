@@ -10,10 +10,10 @@ to glibc.
 
 ### string
 
-[x] memcpy
+- [x] memcpy
 
 ### stddef
 
-[x] null
-[x] size_t
-[x] ssize_t
+- [x] null
+- [x] size_t
+- [x] ssize_t
