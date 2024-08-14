@@ -17,7 +17,7 @@ to glibc.
 
 - [x] memcmp
 - [x] memcpy
-- [ ] memmove
+- [x] memmove
 - [ ] memccpy
 - [x] memset
 - [x] __memcmpeq
@@ -70,7 +70,20 @@ to glibc.
 - [x] ssize_t
 - [x] BIGGEST_TYPE: (no glibc)
 
-### Todo
+### assert
+
+- [x] assert
+
+### malloc
+
+Todo: split functions into files, fix dependencies
+
+### errno
+
+Todo: append errcodes as needed
+
+
+#### Todo
 
 - `__exit_msg` from assert/assert.h
 requires some exit function as well
