@@ -68,4 +68,10 @@ to glibc.
 - [x] null
 - [x] size_t
 - [x] ssize_t
+- [x] BIGGEST_TYPE: (no glibc)
 
+### Todo
+
+- `__exit_msg` from assert/assert.h
+requires some exit function as well
+as a print interface.
