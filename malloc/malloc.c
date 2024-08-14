@@ -1,19 +1,6 @@
-#include "hallocator.h"
-#include <stdlib.h> // atexit
-#include "../string/string.h"
-#include <sys/mman.h> // mmap, munmap
-#include <sys/types.h>
-#include <unistd.h> // read
-
-/*
- *  Important message for readers
- * Void* arithmetic is illegal in C
- * but GCC allow it giving void* size 1
- * So compile this code with other editor
- * may produce errors.
- *  Solution:
- *  change void* to char* on arithmetic
- */
+#include "malloc.h"
+#include "../string/string.h" // memmove
+#include <sys/mman.h>         // mmap, munmap
 
 // global reference to free list (sorted linked list started at head)
 node_t *head = NULL;
@@ -23,10 +10,11 @@ void
 __alloc_destroy()
 {
     munmap(head, SIZE);
+    head = NULL;
 }
 
-__attribute__((constructor)) void // call function before main
-__halloc_init()
+__attribute__((constructor)) static void // call function before main
+__init__()
 {
     // avoid multiple initializations
     if (head == NULL)
@@ -37,8 +25,6 @@ __halloc_init()
 
         head->size = SIZE - sizeof(node_t);
         head->next = NULL;
-
-        atexit(halloc_destroy);
     }
 }
 
@@ -75,17 +61,24 @@ free(void *ptr)
     prev->next     = new_node;
 
     // join with next node if also free
-    if ((void *) new_node + sizeof(node_t) + new_node->size == new_node->next)
+    if ((char *) new_node + sizeof(node_t) + new_node->size ==
+        (char *) new_node->next)
     {
         new_node->size += new_node->next->size + sizeof(node_t);
         new_node->next = new_node->next->next;
     }
 
     // join with previous node if also free
-    if ((void *) prev + sizeof(node_t) + prev->size == (void *) new_node)
+    if ((char *) prev + sizeof(node_t) + prev->size == (char *) new_node)
     {
         prev->size += new_node->size + sizeof(node_t);
         prev->next = new_node->next;
+    }
+
+    // if any memory is used, return it to os
+    if (prev->size == SIZE - sizeof(node_t))
+    {
+        __alloc_destroy();
     }
 }
 
@@ -98,7 +91,7 @@ malloc(int size)
 
     // check if it is initialized
     if (head == NULL)
-        return NULL;
+        __init__();
 
     // check if size is valid
     if (size <= 0)
@@ -129,7 +122,7 @@ malloc(int size)
         // update free list
         ((node_t *) ptr)->size -= size + sizeof(header_t);
         // move pointer to last free 'size' bytes in free space
-        ptr += best_size - size + sizeof(node_t);
+        ptr = (char *) ptr + best_size - size + sizeof(node_t);
         // add header to allocated memory
         *((header_t *) ptr - 1) = (header_t){ .size = size, .magic = MAGIC };
     }
@@ -141,7 +134,7 @@ malloc(int size)
 void *
 realloc_after(void *ptr, int size, header_t *hptr)
 {
-    void     *next        = ptr + hptr->size;
+    void     *next        = (char *) ptr + hptr->size;
     header_t *hnext       = next;
     node_t   *nnext       = next;
     int       needed_size = size - hptr->size;
@@ -183,7 +176,7 @@ realloc_before(void *ptr, int size, header_t *hptr)
         prev = prev->next;
 
     // check if previous free block is just before current block
-    if ((void *) prev + prev->size == hptr)
+    if ((char *) prev + prev->size == (char *) hptr)
     {
         prev->size -= size - hptr->size;
         *(header_t *) ((char *) hptr - (size - hptr->size)) = (header_t){
@@ -203,10 +196,10 @@ realloc(void *ptr, int size)
     header_t *hptr;
 
     if (head == NULL) // check if it is initialized
-        exit(EXIT_FAILURE);
+        __init__();
 
     if (ptr == NULL) // allow use rehalloc as mhalloc
-        return mhalloc(size);
+        return malloc(size);
 
     hptr = ptr - sizeof(header_t); // get header
 
@@ -224,11 +217,11 @@ realloc(void *ptr, int size)
 
     // default rehalloc
     // allocate new block and move data, then free current block
-    if ((newptr = mhalloc(size)) == NULL) // check for out-of-memmory error
+    if ((newptr = malloc(size)) == NULL) // check for out-of-memmory error
         return NULL;
 
     memmove(newptr, ptr, hptr->size); // move data
-    fhree(ptr);
+    free(ptr);
 
     return newptr;
 }

@@ -17,7 +17,7 @@
 
 #ifndef SIZE_T
 #define SIZE_T 1
-typedef unsigned size_t;
+typedef unsigned long size_t;
 #endif
 
 #ifndef SSIZE_T
