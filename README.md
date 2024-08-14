@@ -78,6 +78,19 @@ to glibc.
 
 Todo: split functions into files, fix dependencies
 
+### math
+
+- math.h
+    - [x] abs(int)
+    - [x] absl(long)
+
+- ieee754.h
+
+- lowlevel.h
+    - [x] __is_negative_int / long
+    - [x] __inv  (1 <-> -1)
+
+
 ### errno
 
 Todo: append errcodes as needed
