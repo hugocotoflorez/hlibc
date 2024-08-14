@@ -10,12 +10,12 @@
 #define _STRING_H 1
 
 
-/* Get size_t and NULL from <stddef.h>.  */
+/* Get size_t, BIGGEST_TYPE and NULL from <stddef.h>.  */
 #include "../stddef/stddef.h"
 
 
 /* Copy N bytes of SRC to DEST.  */
-extern void *memcpy(void *dest, const void *src, size_t n);
+extern void *memcpy(void *dest, const void *src, size_t n); // DONE
 
 /* Copy N bytes of SRC to DEST, guaranteeing
    correct behavior for overlapping strings.  */
@@ -27,10 +27,10 @@ extern void *memmove(void *dest, const void *src, size_t n);
 extern void *memccpy(void *dest, const void *src, int c, size_t n);
 
 /* Set N bytes of S to C.  */
-extern void *memset(void *s, int c, size_t n);
+extern void *memset(void *s, int c, size_t n); // DONE
 
 /* Compare N bytes of S1 and S2.  */
-extern int memcmp(const void *s1, const void *s2, size_t n);
+extern int memcmp(const void *s1, const void *s2, size_t n); // DONE
 
 /* Compare N bytes of S1 and S2.  Return zero if S1 and S2 are equal.
    Return some non-zero value otherwise.
@@ -45,7 +45,7 @@ extern int memcmp(const void *s1, const void *s2, size_t n);
 
    __memcmpeq is declared only for use by compilers.  Programs should
    continue to use memcmp.  */
-extern int __memcmpeq(const void *s1, const void *s2, size_t n);
+extern int __memcmpeq(const void *s1, const void *s2, size_t n); // DONE
 
 /* Search N bytes of S for C.  */
 extern void *memchr(const void *s, int c, size_t n);
@@ -58,22 +58,22 @@ extern void *rawmemchr(const void *s, int c);
 extern void *memrchr(const void *s, int c, size_t n);
 
 /* Copy SRC to DEST.  */
-extern char *strcpy(char *dest, const char *src);
+extern char *strcpy(char *dest, const char *src); // DONE
 
 /* Copy no more than N characters of SRC to DEST.  */
-extern char *strncpy(char *dest, const char *src, size_t n);
+extern char *strncpy(char *dest, const char *src, size_t n); // DONE
 
 /* Append SRC onto DEST.  */
-extern char *strcat(char *dest, const char *src);
+extern char *strcat(char *dest, const char *src); // DONE
 
 /* Append no more than N characters from SRC onto DEST.  */
-extern char *strncat(char *dest, const char *src, size_t n);
+extern char *strncat(char *dest, const char *src, size_t n); // DONE
 
 /* Compare S1 and S2.  */
-extern int strcmp(const char *s1, const char *s2);
+extern int strcmp(const char *s1, const char *s2); // DONE
 
 /* Compare N characters of S1 and S2.  */
-extern int strncmp(const char *s1, const char *s2, size_t n);
+extern int strncmp(const char *s1, const char *s2, size_t n); // DONE
 
 /* Duplicate S, returning an identical malloc'd string.  */
 extern char *strdup(const char *s);
@@ -83,9 +83,9 @@ extern char *strdup(const char *s);
    appears before STRING[N].  */
 extern char *strndup(const char *string, size_t n);
 
-/* Duplicate S, returning an identical alloca'd string.  */
 // glibc definition
-#define strdupa(s)                                            \
+/* Duplicate S, returning an identical alloca'd string.  */
+//#define strdupa(s)                                            \
     (__extension__({                                          \
         const char *__old = (s);                              \
         size_t      __len = strlen(__old) + 1;                \
@@ -93,9 +93,9 @@ extern char *strndup(const char *string, size_t n);
         (char *) memcpy(__new, __old, __len);                 \
     }))
 
-/* Return an alloca'd copy of at most N bytes of string.  */
 // glibc definition
-#define strndupa(s, n)                                            \
+/* Return an alloca'd copy of at most N bytes of string.  */
+//#define strndupa(s, n)                                            \
     (__extension__({                                              \
         const char *__old = (s);                                  \
         size_t      __len = strnlen(__old, (n));                  \
@@ -149,11 +149,11 @@ memmem(const void *haystack, size_t haystacklen, const void *needle, size_t need
 extern void *mempcpy(void *dest, const void *src, size_t n);
 
 /* Return the length of S.  */
-extern size_t strlen(const char *s);
+extern size_t strlen(const char *s); // DONE
 
 /* Find the length of STRING, but scan at most MAXLEN characters.
    If no '\0' terminator is found in that many characters, return MAXLEN. */
-extern size_t strnlen(const char *string, size_t maxlen);
+extern size_t strnlen(const char *string, size_t maxlen); // DONE
 
 /* Return a string describing the meaning of the `errno' code in ERRNUM. */
 extern char *strerror(int errnum);

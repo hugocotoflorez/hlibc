@@ -7,6 +7,10 @@
  */
 
 
+#ifndef BIGGEST_TYPE
+#define BIGGEST_TYPE long long
+#endif
+
 #ifndef NULL
 #define NULL ((void *) 0)
 #endif

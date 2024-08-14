@@ -15,26 +15,21 @@ to glibc.
 
 ### string
 
+- [x] memcmp
 - [x] memcpy
 - [ ] memmove
 - [ ] memccpy
-- [ ] memset
-- [ ] memcmp
-- [ ] memcpy
-- [ ] memmove
-- [ ] memccpy
-- [ ] memset
-- [ ] memcmp
-- [ ] __memcmpeq
+- [x] memset
+- [x] __memcmpeq
 - [ ] memchr
 - [ ] rawmemchr
 - [ ] memrchr
-- [ ] strcpy
-- [ ] strncpy
-- [ ] strcat
-- [ ] strncat
-- [ ] strcmp
-- [ ] strncmp
+- [x] strcpy
+- [x] strncpy
+- [x] strcat
+- [x] strncat
+- [x] strcmp
+- [x] strncmp
 - [ ] strdup
 - [ ] strndup
 - [ ] strchr
@@ -49,8 +44,8 @@ to glibc.
 - [ ] strcasestr
 - [ ] memmem
 - [ ] mempcpy
-- [ ] strlen
-- [ ] strnlen
+- [x] strlen
+- [x] strnlen
 - [ ] strerror
 - [ ] strerror_r
 - [ ] strerrorname_np

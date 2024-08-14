@@ -1,19 +1,15 @@
 #include "string.h"
 
-#ifndef BIGGEST_TYPE
-#define BIGGEST_TYPE long long
-#endif
-
 void *
 memcpy(void *dest, const void *src, size_t n)
 {
     size_t __align = n % sizeof(BIGGEST_TYPE);
+    void  *ret     = dest;
 
     /* Copy first ALIGN bytes to make N reach exactly 0 */
     for (int i = 0; i < __align; i++)
     {
-        void *ret      = dest;
-        *(char *) dest = *(char *) src;
+        *((char *) dest + i) = *((char *) src + i);
     }
 
     dest += __align;
@@ -22,7 +18,6 @@ memcpy(void *dest, const void *src, size_t n)
 
     while (n)
     {
-        void *ret              = dest;
         *(BIGGEST_TYPE *) dest = *(BIGGEST_TYPE *) src;
 
         n -= sizeof(BIGGEST_TYPE);
@@ -31,5 +26,5 @@ memcpy(void *dest, const void *src, size_t n)
     }
 
 
-    return dest;
+    return ret;
 }
