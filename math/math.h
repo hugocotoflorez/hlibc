@@ -1,7 +1,8 @@
 #ifndef _MATH_H
 #define _MATH_H 1
 
-#include "ieee754.h"
+#include "ieee754_float.h"
+#include "ieee754_double.h"
 #include "lowlevel.h"
 
 #define M_Ef 2.7182818284590452354f         /* e */
