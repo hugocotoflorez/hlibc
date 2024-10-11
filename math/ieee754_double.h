@@ -13,29 +13,17 @@ typedef struct
  */
 
 
-#define IEEE754_DOUBLE_ZERO_POS                  \
-    (__ieee754_double)                           \
-    {                                            \
-        .sign = 0, .exponent = 0, .mantissa = 0, \
-    }
+#define IEEE754_DOUBLE_ZERO_POS \
+    (__ieee754_double) { .sign = 0, .exponent = 0, .mantissa = 0, }
 
-#define IEEE754_DOUBLE_ZERO_NEG                  \
-    (__ieee754_double)                           \
-    {                                            \
-        .sign = 1, .exponent = 0, .mantissa = 0, \
-    }
+#define IEEE754_DOUBLE_ZERO_NEG \
+    (__ieee754_double) { .sign = 1, .exponent = 0, .mantissa = 0, }
 
-#define IEEE754_DOUBLE_INF_POS                       \
-    (__ieee754_double)                               \
-    {                                                \
-        .sign = 0, .exponent = 0x7FF, .mantissa = 0, \
-    }
+#define IEEE754_DOUBLE_INF_POS \
+    (__ieee754_double) { .sign = 0, .exponent = 0x7FF, .mantissa = 0, }
 
-#define IEEE754_DOUBLE_INF_NEG                       \
-    (__ieee754_double)                               \
-    {                                                \
-        .sign = 1, .exponent = 0x7FF, .mantissa = 0, \
-    }
+#define IEEE754_DOUBLE_INF_NEG \
+    (__ieee754_double) { .sign = 1, .exponent = 0x7FF, .mantissa = 0, }
 
 #define DOUBLE_SIGN_MASK     0x8000000000000000
 #define DOUBLE_EXPONENT_MASK 0x7FF0000000000000

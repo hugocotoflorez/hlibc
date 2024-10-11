@@ -23,6 +23,29 @@ FILE *fopen(const char *pathname, const char *mode);
 int   fclose(FILE *stream);
 int   fflush(FILE *stream);
 
+/* VA_ARGS ! */
+typedef void *va_list;
+#define va_start(va_list, last_arg) (va_list) = &(last_arg) + 1
+#define va_arg(va_list, type) \
+    ((va_list = ((type *) va_list) + 1), *((type *) va_list - 1))
+#define va_end(va_list) ;
+
+/*
+   How to:
+
+    foo(x, ...)         <- declaration
+    foo(x, int, float)  <- function call
+
+        va_list va;
+        va_start(va, x);
+        int   <- va_arg(va, int);
+        float <- va_arg(va, float);
+        va_end(va);
+ */
+
+
+
+
 /*
 int vprintf(const char *format, va_list ap);
 int vfprintf(FILE *stream, const char *format, va_list ap);

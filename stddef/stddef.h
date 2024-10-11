@@ -25,3 +25,6 @@ typedef unsigned long size_t;
 typedef long ssize_t;
 #endif
 
+#ifndef WBUFLEN
+#define WBUFLEN 2048 // write buffer
+#endif

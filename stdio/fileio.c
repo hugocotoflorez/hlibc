@@ -37,11 +37,13 @@ __create_file(int fd)
 FILE *
 fopen(const char *pathname, const char *mode)
 {
-    int fd;
+    int fd = -1;
     int flags;
 
     flags = __get_flags(mode);
-    fd    = open(pathname, flags);
+
+    if (flags)
+        fd = open(pathname, flags);
 
     if (fd < 0)
         return NULL;
