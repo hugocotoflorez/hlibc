@@ -10,6 +10,9 @@ typedef enum __errno_errcodes
     IEE754_INEXACT,
     IEE754_INVALID,
     IEE754_DIV0,
+    ENOMEM, // out of memory
 } ErrCode;
+
+static ErrCode errno;
 
 #endif

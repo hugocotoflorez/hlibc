@@ -115,7 +115,7 @@ typedef struct
  * undefined behavior occurs.  If ptr is NULL, no operation is performed.
  * Return no value, and preserve errno.
  */
-void  __free(void *ptr);
+void  free(void *ptr);
 
 /* The malloc() function allocates size bytes and returns a pointer
  * to  the  allocated  memory.   The memory is not initialized.
@@ -128,7 +128,7 @@ void  __free(void *ptr);
  * as an object that large could cause later pointer subtraction to
  * overflow.
  */
-void *__malloc(size_t size);
+void *malloc(size_t size);
 
 /* The calloc() function allocates memory for an array of nmemb elements
  * of size bytes each and returns a pointer to the allocated
@@ -142,7 +142,7 @@ void *__malloc(size_t size);
  * overflow.
  */
 
-void *__calloc(size_t nmemb, size_t size);
+void *calloc(size_t nmemb, size_t size);
 
 /*
  * The  realloc()  function  changes  the  size of the memory block
@@ -176,6 +176,6 @@ void *__calloc(size_t nmemb, size_t size);
  * moved  to  a new address.  If these functions fail, the original
  * block is left untouched; it is not freed or moved.
  */
-void *__realloc(void *ptr, size_t size);
+void *realloc(void *ptr, size_t size);
 
 #endif // !_HALLOCATOR

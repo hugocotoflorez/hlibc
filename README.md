@@ -18,50 +18,16 @@ to glibc.
 - [x] memcmp
 - [x] memcpy
 - [x] memmove
-- [ ] memccpy
 - [x] memset
 - [x] __memcmpeq
-- [ ] memchr
-- [ ] rawmemchr
-- [ ] memrchr
 - [x] strcpy
 - [x] strncpy
 - [x] strcat
 - [x] strncat
 - [x] strcmp
 - [x] strncmp
-- [ ] strdup
-- [ ] strndup
-- [ ] strchr
-- [ ] strrchr
-- [ ] strchrnul
-- [ ] strcspn
-- [ ] strspn
-- [ ] strpbrk
-- [ ] strstr
-- [ ] strtok
-- [ ] strtok_r
-- [ ] strcasestr
-- [ ] memmem
-- [ ] mempcpy
 - [x] strlen
 - [x] strnlen
-- [ ] strerror
-- [ ] strerror_r
-- [ ] strerrorname_np
-- [ ] explicit_bzero
-- [ ] strsep
-- [ ] strsignal
-- [ ] sigabbrev_np
-- [ ] sigdescr_np
-- [ ] stpcpy
-- [ ] stpncpy
-- [ ] strlcpy
-- [ ] strlcat
-- [ ] strverscmp
-- [ ] strfry
-- [ ] memfrob
-- [ ] basename
 
 ### stddef
 
@@ -76,7 +42,17 @@ to glibc.
 
 ### malloc
 
-Todo: split functions into files, fix dependencies
+- [x] free
+- [x] malloc
+- [x] calloc
+- [x] realloc
+
+### stdio
+
+- [x] fopen
+- [x] fclose
+- [x] fflush
+- [x]
 
 ### math
 
@@ -96,8 +72,3 @@ Todo: split functions into files, fix dependencies
 Todo: append errcodes as needed
 
 
-## Todo
-
-- `__exit_msg` from assert/assert.h
-requires some exit function as well
-as a print interface.

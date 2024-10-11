@@ -2,26 +2,17 @@
 
 #include "../errno/errno.h"   // assert errcode
 #include "../stddef/stddef.h" // null
+#include "../stdio/stdio.h"
 
-void *
-__printf(const char *format, ...)
-{
-    return NULL;
-}
+extern void *exit(ErrCode e); // TODo
 
-void *
-__exit(ErrCode e)
-{
-    return NULL;
-}
-
-#define assert(expr)                                                            \
-    {                                                                           \
-        if (!(expr))                                                            \
-        {                                                                       \
-            __printf("Assert failed. %s: %s: " #expr "\n", __FILE__, __LINE__); \
-            __exit(ASSERT_ERR);                                                   \
-        }                                                                       \
+#define assert(expr)                                                          \
+    {                                                                         \
+        if (!(expr))                                                          \
+        {                                                                     \
+            printf("Assert failed. %s: %s: " #expr "\n", __FILE__, __LINE__); \
+            exit(ASSERT_ERR);                                                 \
+        }                                                                     \
     }
 
 #endif

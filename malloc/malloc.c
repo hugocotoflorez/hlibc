@@ -1,11 +1,10 @@
 #include "malloc.h"
-#include <errno.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../errno/errno.h"
+#include "../string/string.h"
+// TODO - remove glibc dependencies
+#include <stdlib.h>   // atexit
 #include <sys/mman.h> // mmap, munmap
 
-#include <stdio.h>
 /* See malloc.h for further information about
  * how this shit work and interface usage for
  * programmers. */
@@ -205,7 +204,7 @@ __init__()
 }
 
 void
-__free(void *ptr)
+free(void *ptr)
 {
     header_t *hptr;
     node_t   *nptr;
@@ -261,7 +260,7 @@ __free(void *ptr)
 }
 
 void *
-__malloc(size_t size)
+malloc(size_t size)
 {
     header_t *hptr;
     node_t   *nptr;
@@ -317,9 +316,9 @@ __malloc(size_t size)
 }
 
 void *
-__calloc(size_t nmemb, size_t size)
+calloc(size_t nmemb, size_t size)
 {
-    void *ret = __malloc(nmemb * size);
+    void *ret = malloc(nmemb * size);
 
     if (ret)
         return memset(ret, 0, nmemb * size);
@@ -424,7 +423,7 @@ realloc_use_prev(void *ptr, int size, header_t *hptr)
 }
 
 void *
-__realloc(void *ptr, size_t size)
+realloc(void *ptr, size_t size)
 {
     void     *newptr = NULL;
     header_t *hptr;
@@ -433,18 +432,18 @@ __realloc(void *ptr, size_t size)
     if (head == NULL)
     {
         if (size)
-            return __malloc(size);
+            return malloc(size);
         else
             return NULL;
     }
 
     /* Allow use realloc as malloc */
     if (ptr == NULL)
-        return __malloc(size);
+        return malloc(size);
 
     /* Allow use realloc as free */
     if (size == 0)
-        return __free(ptr), NULL;
+        return free(ptr), NULL;
 
     /* Header of block to realloc */
     hptr = (header_t *) ptr - 1;
@@ -470,13 +469,13 @@ __realloc(void *ptr, size_t size)
 
     /* Default: Allocate new block and move data, then free current block */
 
-    newptr = __malloc(size);
+    newptr = malloc(size);
     if (!newptr)
         /* out-of-memory */
         return NULL;
 
     memmove(newptr, ptr, hptr->size);
-    __free(ptr);
+    free(ptr);
 
     return newptr;
 }
