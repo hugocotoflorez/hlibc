@@ -49,10 +49,16 @@ to glibc.
 
 ### stdio
 
+- File I/O
 - [x] fopen
 - [x] fclose
 - [x] fflush
-- [x]
+
+- VA ARGS
+- [x] va_list
+- [x] va_start
+- [x] va_end
+- [x] va_arg
 
 ### math
 
